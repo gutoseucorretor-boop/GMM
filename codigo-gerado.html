@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guto Mourão | Gestão e Desenvolvimento</title>
+  <meta name="description" content="Corretor de imóveis. Venda, lançamento e consultoria imobiliária com gestão e desenvolvimento.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --navy-light: #123056;
+      --gold: #c9a227;
+      --gold-light: #e3c565;
+      --white: #ffffff;
+      --off-white: #f5f7fa;
+      --text: #1c2b3a;
+      --muted: #5c6b7a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.7; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.2; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+
+    /* Navegação */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11, 31, 58, 0.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201, 162, 39, 0.25);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--white); }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: #d7dee8; font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy); font-weight: 600;
+      padding: 0.55rem 1.2rem; border-radius: 6px; font-size: 0.9rem; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold-light); }
+    .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+    .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #0a1830 100%);
+      color: var(--white); padding: 120px 0 80px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(201, 162, 39, 0.12), transparent 45%);
+    }
+    .hero .container { position: relative; }
+    .eyebrow {
+      display: inline-block; color: var(--gold); font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.2rem;
+      border: 1px solid rgba(201, 162, 39, 0.4); padding: 0.4rem 1rem; border-radius: 30px;
+    }
+    .hero h1 { font-size: clamp(2.6rem, 6vw, 4.5rem); margin-bottom: 0.4rem; }
+    .hero h1 span { color: var(--gold); }
+    .hero .subtitle { font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--gold-light); font-weight: 500; margin-bottom: 1.2rem; }
+    .hero p.lead { max-width: 620px; color: #c6d2e0; font-size: 1.05rem; margin-bottom: 2.2rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 0.85rem 1.8rem; border-radius: 6px;
+      font-weight: 600; font-size: 1rem; transition: all 0.2s;
+    }
+    .btn-gold { background: var(--gold); color: var(--navy); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline { border: 1.5px solid rgba(201, 162, 39, 0.6); color: var(--white); }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* Seções */
+    section { padding: 90px 0; }
+    .section-tag { color: var(--gold); font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .section-title { font-size: clamp(1.9rem, 4vw, 2.6rem); margin-bottom: 1rem; }
+    .section-sub { color: var(--muted); max-width: 640px; margin-bottom: 3rem; }
+    .bg-light { background: var(--off-white); }
+    .bg-dark { background: var(--navy); color: var(--white); }
+    .bg-dark .section-sub { color: #a9b8c9; }
+
+    /* Sobre */
+    .sobre-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3.5rem; align-items: center; }
+    .sobre-foto { border-radius: 14px; overflow: hidden; box-shadow: 0 20px 50px rgba(11, 31, 58, 0.25); }
+    .sobre-foto img { width: 100%; height: 100%; object-fit: cover; }
+    .sobre-texto p { margin-bottom: 1.1rem; }
+    .sobre-texto strong { color: var(--navy); }
+    .sobre-destaques { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.8rem; }
+    .destaque { background: var(--white); border: 1px solid #e3e9f0; border-radius: 10px; padding: 1.1rem; text-align: center; }
+    .destaque .num { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); font-weight: 700; }
+    .destaque .label { font-size: 0.85rem; color: var(--muted); }
+
+    /* Credibilidade e Eventos */
+    .destaque-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3.5rem; align-items: center; }
+    .destaque-grid.reverso { grid-template-columns: 1fr 1.4fr; }
+    .destaque-foto { border-radius: 14px; overflow: hidden; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35); }
+    .destaque-foto img { width: 100%; height: 100%; object-fit: cover; }
+    .destaque-texto p { margin-bottom: 1.1rem; }
+    .bg-dark .destaque-texto p { color: #c6d2e0; }
+    .badge {
+      display: inline-block; background: rgba(201, 162, 39, 0.15); color: var(--gold-light);
+      border: 1px solid rgba(201, 162, 39, 0.4); padding: 0.35rem 0.9rem; border-radius: 30px;
+      font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem;
+    }
+
+    /* Serviços */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .card {
+      background: var(--white); border: 1px solid #e3e9f0; border-radius: 12px;
+      padding: 2rem 1.6rem; transition: all 0.25s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(11, 31, 58, 0.12); border-color: var(--gold); }
+    .card .icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .card h3 { font-size: 1.2rem; margin-bottom: 0.6rem; color: var(--navy); }
+    .card p { color: var(--muted); font-size: 0.95rem; }
+
+    /* Contato */
+    .contato-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .contato-item { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .contato-item .icone { font-size: 1.4rem; }
+    .contato-item .rotulo { font-size: 0.8rem; color: #a9b8c9; text-transform: uppercase; letter-spacing: 1px; }
+    .contato-item .valor { color: var(--white); font-weight: 500; }
+    .contato-item a.valor:hover { color: var(--gold); }
+    .contato-acoes { display: flex; flex-direction: column; gap: 1rem; }
+    .contato-acoes .btn { text-align: center; }
+
+    /* Footer */
+    footer { background: #081527; color: #8fa0b5; padding: 2.5rem 0; text-align: center; font-size: 0.9rem; }
+    footer strong { color: var(--white); }
+
+    /* Botão flutuante WhatsApp */
+    .whats-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 90;
+      background: #25d366; color: #fff; width: 58px; height: 58px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 1.7rem;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4); transition: transform 0.2s;
+    }
+    .whats-float:hover { transform: scale(1.08); }
+
+    /* Responsivo */
+    @media (max-width: 860px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: fixed; top: 72px; left: 0; right: 0; flex-direction: column;
+        background: var(--navy); padding: 1.5rem 8%; gap: 1.2rem;
+        transform: translateY(-130%); transition: transform 0.3s; border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+      }
+      .nav-links.aberto { transform: translateY(0); }
+      .nav-cta { display: none; }
+      .sobre-grid, .destaque-grid, .destaque-grid.reverso, .contato-wrap { grid-template-columns: 1fr; gap: 2.2rem; }
+      .sobre-destaques { grid-template-columns: repeat(3, 1fr); }
+      section { padding: 70px 0; }
+    }
+    @media (max-width: 480px) {
+      .sobre-destaques { grid-template-columns: 1fr; }
+      .hero { padding: 110px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="#inicio" class="logo">Guto <span>Mourão</span></a>
+      <button class="menu-toggle" aria-label="Abrir menu" onclick="document.querySelector('.nav-links').classList.toggle('aberto')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#credenciais">Credibilidade</a></li>
+        <li><a href="#eventos">Eventos</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <a class="nav-cta" href="https://wa.me/5585981117779" target="_blank" rel="noopener">Falar no WhatsApp</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="container">
+        <span class="eyebrow">Corretor de Imóveis</span>
+        <h1>Guto <span>Mourão</span></h1>
+        <p class="subtitle">Gestão e Desenvolvimento</p>
+        <p class="lead">Venda, lançamento e consultoria imobiliária com estratégia, ética e resultado. Do primeiro contato ao fechamento, você tem um parceiro comprometido com o seu patrimônio.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="https://wa.me/5585981117779" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          <a class="btn btn-outline" href="https://instagram.com/gutomotamourao" target="_blank" rel="noopener">Seguir no Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+      <div class="container">
+        <span class="section-tag">Sobre mim</span>
+        <h2 class="section-title">Quem é Guto Mourão</h2>
+        <div class="sobre-grid">
+          <!-- FOTO PESSOAL: WhatsApp_Image_2026-09-14_at_08.03.00.jpeg -->
+          <div class="sobre-foto">
+            <img src="WhatsApp_Image_2026-09-14_at_08.03.00.jpeg" alt="Foto pessoal de Guto Mourão, corretor de imóveis">
+          </div>
+          <div class="sobre-texto">
+            <p>Atuo no mercado imobiliário com foco em <strong>gestão e desenvolvimento</strong>, ajudando pessoas e empresas a vender, comprar e investir com segurança e clareza.</p>
+            <p>Meu trabalho começa muito antes da assinatura: entender o objetivo de cada cliente, preparar o imóvel, precificar com inteligência, divulgar no canal certo e negociar até o melhor desfecho possível.</p>
+            <p>Mais do que corretor, sou um conselheiro de patrimônio. Cada negociação é conduzida com transparência, dedicação e acompanhamento de ponta a ponta.</p>
+            <div class="sobre-destaques">
+              <div class="destaque"><div class="num">100%</div><div class="label">Dedicação</div></div>
+              <div class="destaque"><div class="num">Ética</div><div class="label">Em cada negócio</div></div>
+              <div class="destaque"><div class="num">CRECI</div><div class="label">Registro ativo</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREDIBILIDADE -->
+    <section class="bg-dark" id="credenciais">
+      <div class="container">
+        <span class="section-tag">Credibilidade</span>
+        <h2 class="section-title">Reconhecimento profissional</h2>
+        <div class="destaque-grid">
+          <div class="destaque-texto">
+            <span class="badge">Homenagem CRECI-CE</span>
+            <p>Fui homenageado pelo <strong>CRECI-CE</strong>, o Conselho Regional de Corretores de Imóveis do Ceará, em reconhecimento ao trabalho sério e dedicado à profissão.</p>
+            <p>Esse reconhecimento reforça o que sempre guiou minha atuação: ética, transparência e excelência em cada negociação. Quando você trabalha comigo, sabe que está ao lado de um profissional comprometido com o seu resultado.</p>
+          </div>
+          <!-- FOTO HOMENAGEM CRECI: Editedimage_1787061959999.png -->
+          <div class="destaque-foto">
+            <img src="Editedimage_1787061959999.png" alt="Guto Mourão recebendo homenagem do CRECI-CE">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTOS -->
+    <section class="bg-light" id="eventos">
+      <div class="container">
+        <span class="section-tag">Trabalho</span>
+        <h2 class="section-title">Eventos e lançamentos</h2>
+        <div class="destaque-grid reverso">
+          <!-- FOTO EVENTO DE LANÇAMENTO: WhatsApp_Image_2026-09-14_at_08.02.59.jpeg -->
+          <div class="destaque-foto">
+            <img src="WhatsApp_Image_2026-09-14_at_08.02.59.jpeg" alt="Evento de lançamento imobiliário realizado por Guto Mourão">
+          </div>
+          <div class="destaque-texto">
+            <span class="badge">Lançamentos</span>
+            <p>Realizo <strong>eventos de lançamento</strong> que conectam pessoas a novas oportunidades: apresentação do empreendimento, atendimento qualificado e todo o suporte para quem quer investir com confiança.</p>
+            <p>Do evento ao fechamento, o cliente vive uma experiência completa, com informação clara, condições reais e acompanhamento próximo em cada etapa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos">
+      <div class="container">
+        <span class="section-tag">Serviços</span>
+        <h2 class="section-title">Como posso ajudar você</h2>
+        <p class="section-sub">Soluções completas para quem quer vender, comprar ou investir no mercado imobiliário.</p>
+        <div class="cards">
+          <div class="card">
+            <div class="icon">🏠</div>
+            <h3>Venda de Imóveis</h3>
+            <p>Precificação inteligente, divulgação estratégica e negociação qualificada para vender pelo melhor valor.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🚀</div>
+            <h3>Lançamentos</h3>
+            <p>Apresentação e comercialização de empreendimentos novos, do evento de lançamento ao fechamento.</p>
+          </div>
+          <div class="card">
+            <div class="icon">📊</div>
+            <h3>Consultoria</h3>
+            <p>Orientação para comprar, vender ou investir com segurança, comparando opções e evitando riscos.</p>
+          </div>
+          <div class="card">
+            <div class="icon">📈</div>
+            <h3>Gestão e Desenvolvimento</h3>
+            <p>Gestão profissional de carteiras e desenvolvimento de estratégias para fazer seu patrimônio crescer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="bg-dark" id="contato">
+      <div class="container">
+        <span class="section-tag">Contato</span>
+        <h2 class="section-title">Vamos conversar?</h2>
+        <div class="contato-wrap">
+          <div>
+            <div class="contato-item">
+              <span class="icone">📱</span>
+              <div>
+                <div class="rotulo">WhatsApp</div>
+                <a class="valor" href="https://wa.me/5585981117779" target="_blank" rel="noopener">(85) 98111-7779</a>
+              </div>
+            </div>
+            <div class="contato-item">
+              <span class="icone">✉️</span>
+              <div>
+                <div class="rotulo">E-mail</div>
+                <a class="valor" href="mailto:guto@creci.org.br">guto@creci.org.br</a>
+              </div>
+            </div>
+            <div class="contato-item">
+              <span class="icone">📸</span>
+              <div>
+                <div class="rotulo">Instagram</div>
+                <a class="valor" href="https://instagram.com/gutomotamourao" target="_blank" rel="noopener">@gutomotamourao</a>
+              </div>
+            </div>
+          </div>
+          <div class="contato-acoes">
+            <a class="btn btn-gold" href="https://wa.me/5585981117779" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+            <a class="btn btn-outline" href="https://instagram.com/gutomotamourao" target="_blank" rel="noopener">Acompanhar no Instagram</a>
+            <a class="btn btn-outline" href="mailto:guto@creci.org.br">Enviar e-mail</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>Guto Mourão</strong> | Gestão e Desenvolvimento</p>
+      <p>Corretor de Imóveis · CRECI-CE</p>
+      <p>© <span id="ano"></span> Guto Mourão. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <a class="whats-float" href="https://wa.me/5585981117779" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">💬</a>
+
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+    // Fecha o menu mobile ao clicar em um link
+    document.querySelectorAll('.nav-links a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        document.querySelector('.nav-links').classList.remove('aberto');
+      });
+    });
+  </script>
+</body>
+</html>
